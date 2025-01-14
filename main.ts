@@ -39,6 +39,13 @@ radio.onReceivedValue(function (name, value) {
         sender_serriennummer = radio.receivedPacket(RadioPacketProperty.SerialNumber)
         verbunden = 1
         radio.sendValue("Accept", radio.receivedPacket(RadioPacketProperty.SerialNumber))
+        basic.showLeds(`
+            . . . . .
+            . . . . #
+            . . . # .
+            # . # . .
+            . # . . .
+            `)
     }
 })
 let code = 0
@@ -47,7 +54,6 @@ let verbunden = 0
 let sender_serriennummer = 0
 let activ = 0
 radio.setGroup(128)
-radio.setTransmitSerialNumber(true)
 activ = 0
 sender_serriennummer = 0
 verbunden = 0
