@@ -2,9 +2,16 @@ radio.onReceivedValue(function (name, value) {
     if (verbunden == 1) {
         if (radio.receivedPacket(RadioPacketProperty.SerialNumber) == sender_serriennummer) {
             if (activ == 1) {
-                if (name == "Disable") {
+                if (name == "D") {
                     if (value == control.deviceSerialNumber()) {
                         activ = 0
+                        basic.showLeds(`
+                            # . . . #
+                            . # . # .
+                            . . # . .
+                            . # . # .
+                            # . . . #
+                            `)
                     }
                 } else if (name == "motorL") {
                     if (value == 0) {
@@ -29,22 +36,29 @@ radio.onReceivedValue(function (name, value) {
                 } else if (name == "SetDir") {
                     richtung = value
                 }
-            } else if (name == "Activate") {
+            } else if (name == "A") {
                 if (value == control.deviceSerialNumber()) {
                     activ = 1
+                    basic.showLeds(`
+                        . # # # .
+                        # . . . #
+                        # . . . #
+                        # . . . #
+                        . # # # .
+                        `)
                 }
             }
         }
     } else if (name == "BindBots" && value == code) {
         sender_serriennummer = radio.receivedPacket(RadioPacketProperty.SerialNumber)
         verbunden = 1
-        radio.sendValue("Accept", radio.receivedPacket(RadioPacketProperty.SerialNumber))
+        radio.sendValue("Accept", sender_serriennummer)
         basic.showLeds(`
-            . . . . .
-            . . . . #
+            . # # # .
             . . . # .
-            # . # . .
-            . # . . .
+            . . # . .
+            . . . . .
+            . . # . .
             `)
     }
 })
@@ -54,6 +68,7 @@ let verbunden = 0
 let sender_serriennummer = 0
 let activ = 0
 radio.setGroup(128)
+radio.setTransmitSerialNumber(true)
 activ = 0
 sender_serriennummer = 0
 verbunden = 0
