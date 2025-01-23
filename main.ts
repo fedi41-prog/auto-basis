@@ -50,15 +50,25 @@ radio.onReceivedValue(function (name, value) {
             }
         }
     } else if (name == "BindBots" && value == code) {
-        sender_serriennummer = radio.receivedPacket(RadioPacketProperty.SerialNumber)
-        verbunden = 1
-        radio.sendValue("Accept", sender_serriennummer)
         basic.showLeds(`
             . # # # .
             . . . # .
             . . # . .
             . . . . .
             . . # . .
+            `)
+        sender_serriennummer = radio.receivedPacket(RadioPacketProperty.SerialNumber)
+        verbunden = 1
+        while (!(input.buttonIsPressed(Button.A) || input.buttonIsPressed(Button.B))) {
+        	
+        }
+        radio.sendValue("Accept", sender_serriennummer)
+        basic.showLeds(`
+            . # . # .
+            . # . # .
+            . . . . .
+            # . . . #
+            . # # # .
             `)
     }
 })
